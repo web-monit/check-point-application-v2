@@ -1,0 +1,43 @@
+################### Monitoring system check point ############################
+#                                                                            #
+#     Author : Manouchehr Rasouli                                            #
+#                                                                            #
+#     The configuration file contains the information that will needed to    #
+#     service to authenticate over message broker system, and how to connect #
+#     into this broker.                                                      #
+##############################################################################
+
+# Message broker that we will subscribe on it.
+check_point.message_server:
+  host: 192.168.134.128
+  port: 61613
+  user_name: system
+  password: manager
+  id: check_point_1
+  # Change for each check point that added to system
+  subscription: /queue/check_point_1
+
+check_point.data_base:
+  database_host: 192.168.134.128
+  database_port: 27017
+  maximum_pool_size: 50
+  wait_queue_time_out: 100 # ms
+  database_name: check_point_1
+  job_collection: jobs
+
+check_point.scheduler:
+  thread_pool_executor: 20
+  process_pool_executor: 5
+
+# The central engine of the monitoring system.
+monit_engine.message_queue:
+  registry: /queue/monit_engine_registry
+  result: /queue/monit_engine_result
+
+check_point.specification:
+  host: 127.0.0.1
+  location: zanjan
+  time_region: '+0000'
+
+schema:
+  handler_schema: ./schema/schema/handler_schema
